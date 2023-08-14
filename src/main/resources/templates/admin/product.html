@@ -29,7 +29,7 @@
             <h2>Results</h2>
             <br>
             <div class="row">
-                <div class="col-sm-3 mb-3" th:each="product : ${products}">
+                <div class="col-sm-3 mb-3" th:each="product : ${pageProduct.content}">
                     <div class="card" style="width: 18rem;">
                         <img src="/nothingToSee.gif" class="card-img-top" alt="Nothing to see">
                         <div class="card-body">
@@ -39,14 +39,44 @@
                                 th:text="${product.description}">
                             </p>
                             <p><span class="fw-bold fs-4" th:text="${product.price}"></span></p>
-                            <a class="btn btn-dark">Details</a>
-<!--                            th:href="@{/admin/product/{productId}(productId=${product.id})}"-->
+                            <a class="btn btn-dark" th:href="@{/admin/product/{productId}(productId=${product.getProductId()})}">
+                                Details
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </article>
+    <footer class="container">
+        <hr>
+        <br>
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" th:href="@{/admin/product(page=0)}">First</a>
+            </li>
+
+            <li class="page-item" th:if="${pageProduct.hasPrevious()}">
+                <a class="page-link" th:href="@{/admin/product(page=${pageProduct.getNumber() - 1})}">Previous</a>
+            </li>
+            <li class="page-item" th:unless="${pageProduct.hasPrevious()}">
+                <a class="page-link disabled" th:href="@{/admin/product(page=0)}">Previous</a>
+            </li>
+
+            <li class="page-item">
+                <p class="page-link disabled">
+                    <span th:text="${pageProduct.getNumber() + 1}"></span> of <span th:text="${pageProduct.getTotalPages()}"></span>
+                </p>
+            </li>
+
+            <li class="page-item" th:if="${pageProduct.hasNext()}">
+                <a class="page-link" th:href="@{/admin/product(page=${pageProduct.getNumber() + 1})}">Next</a>
+            </li>
+            <li class="page-item" th:unless="${pageProduct.hasNext()}">
+                <a class="page-link disabled" th:href="@{/admin/product(page=${pageProduct.getTotalPages() - 1})}">Next</a>
+            </li>
+        </ul>
+    </footer>
 
 <script th:replace="~{fragments/scriptBootstrap :: scriptBootstrap}"></script>
 </body>
