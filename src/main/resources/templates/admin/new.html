@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(title='ADMIN | New product')}"></head>
+<body>
+<nav th:replace="~{fragments/navbarAdmin :: navbar}"></nav>
+
+<div class="container">
+    <br>
+    <h1>ADMIN | New Product</h1>
+    <br>
+    <form action="/admin/product" method="post" th:object="${productDto}">
+        <div class="mb-3">
+            <label for="name" class="form-label">Product name</label>
+            <input type="text" class="form-control" id="name" required th:field="*{name}">
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" rows="3" required th:field="*{description}"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price</label>
+            <input type="number" class="form-control" id="price" required th:field="*{price}">
+        </div>
+        <div class="mb-3">
+            <label for="stock" class="form-label">Stock quantity</label>
+            <input type="number" class="form-control" id="stock" required th:field="*{stock}">
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category" required th:field="*{category}">
+                <option th:each="productCategory : ${productCategories}"
+                        th:text="${productCategory}"
+                        th:value="${productCategory}">
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <button type="submit" class="btn btn-dark">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script th:replace="~{fragments/scriptBootstrap :: scriptBootstrap}"></script>
+</body>
+</html>

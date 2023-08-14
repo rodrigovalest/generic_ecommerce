@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(title='ADMIN | New product')}"></head>
+<body>
+<nav th:replace="~{fragments/navbarAdmin :: navbar}"></nav>
+
+    <article class="container">
+        <br>
+        <br>
+        <section>
+            <br>
+            <h1>Search product</h1>
+            <br>
+            <form action="/admin/product" method="get" class="row g-2 align-items-center">
+                <div class="col">
+                    <input type="text" class="form-control" id="name" placeholder="Product name" name="product" required>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-dark">Submit</button>
+                </div>
+            </form>
+            <br>
+        </section>
+
+        <hr>
+
+        <section>
+            <br>
+            <h2>Results</h2>
+            <br>
+            <div class="row">
+                <div class="col-sm-3 mb-3" th:each="product : ${products}">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/nothingToSee.gif" class="card-img-top" alt="Nothing to see">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${product.name}"></h5>
+                            <p class="card-text"
+                                style="height: 100px; overflow: hidden; text-overflow: ellipsis;"
+                                th:text="${product.description}">
+                            </p>
+                            <p><span class="fw-bold fs-4" th:text="${product.price}"></span></p>
+                            <a class="btn btn-dark">Details</a>
+<!--                            th:href="@{/admin/product/{productId}(productId=${product.id})}"-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+
+<script th:replace="~{fragments/scriptBootstrap :: scriptBootstrap}"></script>
+</body>
+</html>
