@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(title='Homepage')}"></head>
+<body>
+<nav th:replace="~{fragments/navbarUser :: navbar}"></nav>
+
+<div class="container">
+    <br>
+    <section th:if="${adminCard}">
+        <div class="card text-center">
+            <div class="card-header">
+                Attention 🔥
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Your account have administrator access</h5>
+                <p class="card-text">To manage your business, access the administrator homepage.</p>
+                <a href="/admin" class="btn btn-dark">Access</a>
+            </div>
+        </div>
+    </section>
+    <br>
+    <h1>Homepage</h1>
+    <br>
+</div>
+
+<script th:replace="~{fragments/scriptBootstrap :: scriptBootstrap}"></script>
+</body>
+</html>

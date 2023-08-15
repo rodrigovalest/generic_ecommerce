@@ -22,8 +22,10 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests( (authorize) -> authorize
                 .requestMatchers(HttpMethod.GET,"/auth/*").anonymous()
                 .requestMatchers("/auth/logout").authenticated()
-                .requestMatchers(HttpMethod.GET, "/admin/*").hasAuthority("ROLE_ADMIN")
-                .requestMatchers(HttpMethod.GET, "/admin").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/admin/product/*").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/admin/product").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/admin/*").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
         ).formLogin( (form) -> form
                 .loginPage("/auth/signin")

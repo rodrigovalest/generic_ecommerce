@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(title='Search product')}"></head>
+<body>
+<nav th:replace="~{fragments/navbarUser :: navbar}"></nav>
+
+    <article class="container" th:if="${pageProduct.hasContent()}">
+        <br>
+        <section>
+            <br>
+            <h2>Results</h2>
+            <br>
+            <div class="row">
+                <div class="col-sm-3 mb-3" th:each="product : ${pageProduct.content}">
+                    <div class="card" style="width: 18rem;">
+                        <img src="/nothingToSee.gif" class="card-img-top" alt="Nothing to see">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${product.name}"></h5>
+                            <p class="card-text"
+                               style="height: 100px; overflow: hidden; text-overflow: ellipsis;"
+                               th:text="${product.description}">
+                            </p>
+                            <p><span class="fw-bold fs-4" th:text="${product.price}"></span></p>
+                            <a class="btn btn-dark" th:href="@{/product/{productId}(productId=${product.getProductId()})}">
+                                Buy
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </article>
+
+    <article class="container" th:unless="${pageProduct.hasContent()}">
+        <br>
+        <section>
+            <br>
+            <h2>Sorry, no results found</h2>
+            <br>
+            <img src="/nothingToSee.gif" style="height: 400px" alt="Nothing to see gif">
+        </section>
+    </article>
+
+    <footer class="container" th:if="${pageProduct.hasContent()}">
+        <hr>
+        <br>
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" th:href="@{/product(search=${search}, page=0)}">First</a>
+            </li>
+
+            <li class="page-item" th:if="${pageProduct.hasPrevious()}">
+                <a class="page-link" th:href="@{/product(page=${search=${search}, pageProduct.getNumber() - 1})}">Previous</a>
+            </li>
+            <li class="page-item" th:unless="${pageProduct.hasPrevious()}">
+                <a class="page-link disabled" th:href="@{/product(search=${search}, page=0)}">Previous</a>
+            </li>
+
+            <li class="page-item">
+                <p class="page-link disabled">
+                    <span th:text="${pageProduct.getNumber() + 1}"></span> of <span th:text="${pageProduct.getTotalPages()}"></span>
+                </p>
+            </li>
+
+            <li class="page-item" th:if="${pageProduct.hasNext()}">
+                <a class="page-link" th:href="@{/product(search=${search}, page=${pageProduct.getNumber() + 1})}">Next</a>
+            </li>
+            <li class="page-item" th:unless="${pageProduct.hasNext()}">
+                <a class="page-link disabled" th:href="@{/product(search=${search}, page=${pageProduct.getTotalPages() - 1})}">Next</a>
+            </li>
+        </ul>
+    </footer>
+
+<script th:replace="~{fragments/scriptBootstrap :: scriptBootstrap}"></script>
+</body>
+</html>

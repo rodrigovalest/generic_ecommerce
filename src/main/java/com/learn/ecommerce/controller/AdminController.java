@@ -10,14 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import org.springframework.data.domain.Pageable;
-import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin")
@@ -63,5 +60,18 @@ public class AdminController {
         mv.addObject("pageProduct", pageProduct);
 
         return mv;
+    }
+
+    @GetMapping("/product/{id}")
+    public ModelAndView findAll(@PathVariable UUID id) {
+        Optional<ProductModel> product = productRepository.findById(id);
+
+        if (product.isPresent()) {
+            ModelAndView mv = new ModelAndView("admin/show");
+            mv.addObject("product", product.get());
+            return mv;
+        } else {
+            return new ModelAndView("redirect:/error");
+        }
     }
 }

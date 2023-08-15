@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(title='Search ' + ${product.name})}"></head>
+<body>
+<nav th:replace="~{fragments/navbarUser :: navbar}"></nav>
+
+<div class="container">
+    <br>
+    <h1>Show product</h1>
+    <br>
+    <p>Name: <span th:text="${product.name}"></span></p>
+    <br>
+    <p>Description: <span th:text="${product.description}"></span></p>
+    <br>
+    <p>Price: <span th:text="${product.price}"></span></p>
+    <br>
+    <p>Stock: <span th:text="${product.stock}"></span></p>
+    <br>
+    <p>Category: <span th:text="${product.category}"></span></p>
+    <br>
+    <a class="btn btn-dark" th:href="@{#}">
+        BUY
+    </a>
+</div>
+
+<script th:replace="~{fragments/scriptBootstrap :: scriptBootstrap}"></script>
+</body>
+</html>
