@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head(title='Cart')}"></head>
+<body>
+<nav th:replace="~{fragments/navbarUser :: navbar}"></nav>
+
+<div class="container">
+    <br>
+    <h1>Cart</h1>
+    <br>
+    <div class="card" th:if="${listItensCart.isEmpty()}">
+        <br>
+        <h2>Sorry, no results found</h2>
+        <br>
+        <img src="/nothingToSee.gif" style="height: 400px" alt="Nothing to see gif">
+    </div>
+
+    <div class="card mb-3" th:unless="${listItensCart.isEmpty()}" th:each="itemCart : ${listItensCart}">
+        <div class="card-body">
+            <p>
+                Product:
+                <span th:text="${itemCart.getProduct().getName()}"
+                      th:href="@{/product/{productId}(productId=${itemCart.getProduct().getProductId()})}">
+                </span>
+            </p>
+            <p>
+                Price: <span th:text="${itemCart.getProduct().getPrice()}"></span>
+            </p>
+            <p>
+                Quantity: <span th:text="${itemCart.getQuantity()}"></span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<script th:replace="~{fragments/scriptBootstrap :: scriptBootstrap}"></script>
+</body>
+</html>

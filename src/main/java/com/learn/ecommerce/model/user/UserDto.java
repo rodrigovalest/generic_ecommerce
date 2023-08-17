@@ -18,8 +18,6 @@ public class UserDto {
 
     private String address;
 
-    private UserRoleEnum role;
-
 
     public String getUsername() {
         return username;
@@ -53,21 +51,12 @@ public class UserDto {
         this.address = address;
     }
 
-    public UserRoleEnum getRole() {
-        return role;
-    }
-
-    public void setRole(UserRoleEnum role) {
-        this.role = role;
-    }
-
     public UserModel toUser() {
         UserModel user = new UserModel();
         user.setUsername(this.username);
         user.setAddress(this.address);
         user.setEmail(this.email);
         user.setPassword(this.password);
-        user.setRole(this.role);
         return user;
     }
 }

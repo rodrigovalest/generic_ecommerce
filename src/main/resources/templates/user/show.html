@@ -18,9 +18,15 @@
     <br>
     <p>Category: <span th:text="${product.category}"></span></p>
     <br>
-    <a class="btn btn-dark" th:href="@{#}">
-        BUY
-    </a>
+    <form method="post" action="/cart" th:object="${itensCartDto}">
+        <input type="hidden" th:field="*{product}">
+        <div class="mb-3">
+            <input type="number" class="form-control" required placeholder="Quantity" th:field="*{quantity}">
+        </div>
+        <div class="mb-3">
+            <input type="submit" class="btn btn-dark" placeholder="Add to cart">
+        </div>
+    </form>
 </div>
 
 <script th:replace="~{fragments/scriptBootstrap :: scriptBootstrap}"></script>

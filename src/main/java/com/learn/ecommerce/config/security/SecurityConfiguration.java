@@ -21,6 +21,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests( (authorize) -> authorize
                 .requestMatchers(HttpMethod.GET,"/auth/*").anonymous()
+                .requestMatchers(HttpMethod.POST,"/auth/*").anonymous()
                 .requestMatchers("/auth/logout").authenticated()
                 .requestMatchers("/admin/product/*").hasAuthority("ROLE_ADMIN")
                 .requestMatchers("/admin/product").hasAuthority("ROLE_ADMIN")

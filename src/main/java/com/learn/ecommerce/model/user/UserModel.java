@@ -14,7 +14,6 @@ import java.util.UUID;
 public class UserModel implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(columnDefinition = "binary(255)")
     private UUID userId;
 
     @Column(nullable = false, unique = true)
